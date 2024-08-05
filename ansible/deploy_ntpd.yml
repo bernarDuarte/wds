@@ -1,0 +1,23 @@
+- name: Deploy ntpd package with custom configuration
+  hosts: 
+    - app-vm1.fra1.internal
+    - db-vm1.fra1.db
+    - web-vm1.fra1.web
+  become: yes
+  tasks:
+    - name: Install ntpd package
+      package:
+        name: ntpd
+        state: present
+
+    - name: Copy custom ntpd configuration file
+      template:
+        src: ntpd.conf.j2
+        dest: /etc/ntpd.conf
+      notify: Restart ntpd
+
+  handlers:
+    - name: Restart ntpd
+      service:
+        name: ntpd
+        state: restarted

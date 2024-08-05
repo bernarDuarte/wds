@@ -1,0 +1,15 @@
+- name: Configure logrotate cron job
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install logrotate (if not already installed)
+      package:
+        name: logrotate
+        state: present
+
+    - name: Add logrotate cron job
+      cron:
+        name: "Run logrotate every 10 minutes between 2 AM and 4 AM"
+        minute: "*/10"
+        hour: "2-3"
+        job: "/usr/sbin/logrotate -f /etc/logrotate.conf"

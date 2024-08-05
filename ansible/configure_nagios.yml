@@ -1,0 +1,7 @@
+- name: Configure Nagios monitoring templates
+  hosts: monitoring.fra1.internal
+  tasks:
+    - name: Define Nagios host and service templates
+      template:
+        src: nagios_templates.cfg.j2
+        dest: /etc/nagios3/conf.d/hosts_services.cfg

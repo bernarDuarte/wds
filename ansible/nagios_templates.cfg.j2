@@ -1,0 +1,46 @@
+# Host template
+define host {
+    host_name app-vm1.fra1.internal
+    address 192.168.0.2
+    check_command check-ping
+    active_checks_enabled 1
+    passive_checks_enabled 1
+}
+
+define host {
+    host_name db-vm1.fra1.db
+    address 192.168.0.3
+    check_command check-ping
+    active_checks_enabled 1
+    passive_checks_enabled 1
+}
+
+define host {
+    host_name web-vm1.fra1.web
+    address 192.168.0.4
+    check_command check-ping
+    active_checks_enabled 1
+    passive_checks_enabled 1
+}
+
+# Service template
+define service {
+    service_description ntp_process
+    host_name app-vm1.fra1.internal
+    check_command check_ntp
+    check_interval 10
+}
+
+define service {
+    service_description ntp_process
+    host_name db-vm1.fra1.db
+    check_command check_ntp
+    check_interval 10
+}
+
+define service {
+    service_description ntp_process
+    host_name web-vm1.fra1.web
+    check_command check_ntp
+    check_interval 10
+}

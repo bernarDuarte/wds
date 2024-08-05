@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-container
+    restart: always
+    networks:
+      nginx-net:
+        ipv4_address: 172.20.8.2
+    volumes:
+      - nginx_logs:/var/log/nginx
+
+networks:
+  nginx-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.8.0/24
+
+volumes:
+  nginx_logs:
+    driver: local

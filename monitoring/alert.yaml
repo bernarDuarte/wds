@@ -1,0 +1,11 @@
+groups:
+  - name: cpuUsage-monitoring
+    rules:
+      - alert: HighCpuUsage
+        expr: rate(container_cpu_usage_seconds_total{namespace="my-namespace"}[5m]) > 0.8
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage detected in pod {{ $labels.pod }}"
+          description: "CPU usage in pod {{ $labels.pod }} is above 80% for the last 5 minutes."
